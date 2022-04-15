@@ -1,0 +1,18 @@
+node {
+  stage('Checkout') {
+    cleanWs()
+    git url: 'https://github.com/prathameshppai/sample-angular-app.git'
+  }
+
+  stage('Build docker image') {
+    dir(sample-angular-app) {
+      sh 'docker build -t prathameshppai/sample-angular-app .'
+    }
+  }
+  
+  stage('Push docker image') {
+    dir(sample-angular-app) {
+      sh 'docker push prathameshppai/sample-angular-app:latest'
+    }
+  }
+}
